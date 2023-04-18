@@ -30,6 +30,9 @@ public class KeycloakRealmImportSpec {
     @JsonPropertyDescription("The RealmRepresentation to import into Keycloak.")
     private RealmRepresentation realm;
 
+    @JsonPropertyDescription("The RealmRepresentation to import into Keycloak overrides current config.")
+    private boolean override;
+
     public String getKeycloakCRName() {
         return keycloakCRName;
     }
@@ -44,6 +47,10 @@ public class KeycloakRealmImportSpec {
 
     public void setRealm(RealmRepresentation realm) {
         this.realm = realm;
+    }
+
+    public String () {
+        return ;
     }
 
 }

@@ -85,6 +85,12 @@ public class KeycloakDeployment extends OperatorManagedResource implements Statu
 
     @Override
     public Optional<HasMetadata> getReconciledResource() {
+
+        if (client.secrets().inNamespace(getNamespace()).withName(adminSecretName).get() == null) {
+            Log.info("Stop reconciling. Keycloak Admin initial Secret %s is not found. Please create secret first", adminSecretName);
+            return Optional.empty();
+        }
+
         StatefulSet baseDeployment = new StatefulSetBuilder(this.baseDeployment).build(); // clone not to change the base template
         StatefulSet reconciledDeployment;
         if (existingDeployment == null) {

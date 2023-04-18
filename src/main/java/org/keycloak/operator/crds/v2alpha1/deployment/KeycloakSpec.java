@@ -39,6 +39,9 @@ public class KeycloakSpec {
     @JsonPropertyDescription("Custom Keycloak image to be used.")
     private String image;
 
+    @JsonPropertyDescription("Existing Keycloak Admin initial secret.")
+    private String existingAdminSecret;
+
     @JsonPropertyDescription("Secret(s) that might be used when pulling an image from a private container image registry or repository.")
     private List<LocalObjectReference> imagePullSecrets;
 
@@ -142,6 +145,10 @@ public class KeycloakSpec {
 
     public String getImage() {
         return image;
+    }
+
+    public String getExistingAdminSecret() {
+        return existingAdminSecret;
     }
 
     public void setImage(String image) {

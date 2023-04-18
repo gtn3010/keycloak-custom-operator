@@ -16,7 +16,11 @@ public class KeycloakAdminSecret extends OperatorManagedResource {
 
     public KeycloakAdminSecret(KubernetesClient client, Keycloak keycloak) {
         super(client, keycloak);
-        this.secretName = KubernetesResourceUtil.sanitizeName(keycloak.getMetadata().getName() + "-initial-admin");
+        if (keycloak.getExistingAdminSecret() == null) {
+            this.secretName = KubernetesResourceUtil.sanitizeName(keycloak.getMetadata().getName() + "-initial-admin");
+        } else {
+            this.secretName = keycloak.getExistingAdminSecret()
+        }
     }
 
     @Override
@@ -24,7 +28,12 @@ public class KeycloakAdminSecret extends OperatorManagedResource {
         if (client.secrets().inNamespace(getNamespace()).withName(secretName).get() != null) {
             return Optional.empty();
         } else {
-            return Optional.of(createSecret());
+            if (keycloak.getExistingAdminSecret() == null) {
+                return Optional.of(createSecret());
+            } else {
+                Log.error("No existing Keycloak Admin Secret %s is found. Please create secret first", secretName);
+                return Optional.empty();
+            }
         }
     }
 
