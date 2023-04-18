@@ -160,12 +160,21 @@ public class KeycloakRealmImportJob extends OperatorManagedResource {
 
         var command = List.of("/bin/bash");
 
-        var override = "--override=false";
+        if realmCR.isOverrideEnabled() {
+            var override = "--override=true";
+        } else {
+            var override = "--override=false";
+        }
 
         var runBuild = (keycloak.getSpec().getImage() == null) ? "/opt/keycloak/bin/kc.sh build && " : "";
 
-        var commandArgs = List.of("-c",
+        if (realmCR.getCustomArgs() != null) {
+            var commandArgs = List.of("-c",
+                realmCR.getCustomArgs())
+        } else {
+            var commandArgs = List.of("-c",
                 runBuild + "/opt/keycloak/bin/kc.sh import --file='" + importMntPath + getRealmName() + "-realm.json' " + override);
+        }
 
         keycloakContainer
                 .setCommand(command);
