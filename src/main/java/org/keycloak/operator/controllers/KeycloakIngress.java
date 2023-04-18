@@ -57,7 +57,7 @@ public class KeycloakIngress extends OperatorManagedResource implements StatusUp
                 resultIngress.getMetadata().setAnnotations(new HashMap<>());
             }
             if (ingressSpec.getCustomIngressAnnotations() != null) {
-                resultIngress.getMetadata().getAnnotations().putAll(ingressSpec.getCustomIngressAnnotations())
+                resultIngress.getMetadata().getAnnotations().putAll(ingressSpec.getCustomIngressAnnotations());
             } else {
                 resultIngress.getMetadata().getAnnotations().putAll(defaultIngress.getMetadata().getAnnotations());
             }

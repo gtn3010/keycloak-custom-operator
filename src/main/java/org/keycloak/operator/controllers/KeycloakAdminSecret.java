@@ -9,17 +9,21 @@ import org.keycloak.operator.crds.v2alpha1.deployment.Keycloak;
 
 import java.util.Optional;
 import java.util.UUID;
+import io.quarkus.logging.Log;
 
 public class KeycloakAdminSecret extends OperatorManagedResource {
 
     private final String secretName;
+    private String existSecretName;
 
+    // Constructor method
     public KeycloakAdminSecret(KubernetesClient client, Keycloak keycloak) {
         super(client, keycloak);
-        if (keycloak.getExistingAdminSecret() == null) {
+        this.existSecretName = keycloak.getSpec().getExistingAdminSecret();
+        if (this.existSecretName == null) {
             this.secretName = KubernetesResourceUtil.sanitizeName(keycloak.getMetadata().getName() + "-initial-admin");
         } else {
-            this.secretName = keycloak.getExistingAdminSecret()
+            this.secretName = this.existSecretName;
         }
     }
 
@@ -28,10 +32,10 @@ public class KeycloakAdminSecret extends OperatorManagedResource {
         if (client.secrets().inNamespace(getNamespace()).withName(secretName).get() != null) {
             return Optional.empty();
         } else {
-            if (keycloak.getExistingAdminSecret() == null) {
+            if (existSecretName == null) {
                 return Optional.of(createSecret());
             } else {
-                Log.error("No existing Keycloak Admin Secret %s is found. Please create secret first", secretName);
+                Log.errorf("No existing Keycloak Admin Secret %s is found. Please create secret first", secretName);
                 return Optional.empty();
             }
         }

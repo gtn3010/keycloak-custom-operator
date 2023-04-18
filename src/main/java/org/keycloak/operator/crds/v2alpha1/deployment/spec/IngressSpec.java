@@ -18,7 +18,9 @@
 package org.keycloak.operator.crds.v2alpha1.deployment.spec;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.sundr.builder.annotations.Buildable;
+import java.util.Map;
 
 @Buildable(editableEnabled = false, builderPackage = "io.fabric8.kubernetes.api.builder")
 public class IngressSpec {
@@ -29,7 +31,7 @@ public class IngressSpec {
     @JsonPropertyDescription("Custom annotations for Ingress.")
     private Map<String,String> customAnnotations;
 
-    public boolean getCustomIngressAnnotations() {
+    public Map<String,String> getCustomIngressAnnotations() {
         return customAnnotations;
     }
 
