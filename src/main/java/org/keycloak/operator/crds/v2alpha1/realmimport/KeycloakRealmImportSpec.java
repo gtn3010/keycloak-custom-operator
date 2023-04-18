@@ -31,8 +31,7 @@ public class KeycloakRealmImportSpec {
     private RealmRepresentation realm;
 
     @JsonPropertyDescription("The Realm imported into Keycloak overrides current Realm config.")
-    @JsonProperty("enabled")
-    private boolean overrideExistRealm = true;
+    private boolean overrideExistRealm;
 
     @JsonPropertyDescription("Custom args for Realm import job.")
     private String customArgs;

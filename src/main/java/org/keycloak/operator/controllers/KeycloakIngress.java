@@ -56,7 +56,11 @@ public class KeycloakIngress extends OperatorManagedResource implements StatusUp
             if (resultIngress.getMetadata().getAnnotations() == null) {
                 resultIngress.getMetadata().setAnnotations(new HashMap<>());
             }
-            resultIngress.getMetadata().getAnnotations().putAll(defaultIngress.getMetadata().getAnnotations());
+            if (ingressSpec.getCustomIngressAnnotations() != null) {
+                resultIngress.getMetadata().getAnnotations().putAll(ingressSpec.getCustomIngressAnnotations())
+            } else {
+                resultIngress.getMetadata().getAnnotations().putAll(defaultIngress.getMetadata().getAnnotations());
+            }
             resultIngress.setSpec(defaultIngress.getSpec());
             return Optional.of(resultIngress);
         }
@@ -75,14 +79,14 @@ public class KeycloakIngress extends OperatorManagedResource implements StatusUp
                     .addToAnnotations("route.openshift.io/termination", tlsTermination)
                 .endMetadata()
                 .withNewSpec()
-                    .withNewDefaultBackend()
-                        .withNewService()
-                            .withName(keycloak.getMetadata().getName() + Constants.KEYCLOAK_SERVICE_SUFFIX)
-                            .withNewPort()
-                                .withNumber(port)
-                            .endPort()
-                        .endService()
-                    .endDefaultBackend()
+                    // .withNewDefaultBackend()
+                    //     .withNewService()
+                    //         .withName(keycloak.getMetadata().getName() + Constants.KEYCLOAK_SERVICE_SUFFIX)
+                    //         .withNewPort()
+                    //             .withNumber(port)
+                    //         .endPort()
+                    //     .endService()
+                    // .endDefaultBackend()
                     .addNewRule()
                         .withNewHttp()
                             .addNewPath()
