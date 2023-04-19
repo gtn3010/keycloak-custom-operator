@@ -4,17 +4,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- <parent>
+    <parent>
         <artifactId>keycloak-parent</artifactId>
         <groupId>org.keycloak</groupId>
         <version>21.0.2</version>
-        <relativePath>./keycloak-parent/pom.xml</relativePath>
-    </parent> -->
+        <relativePath>../keycloak-parent/pom.xml</relativePath>
+    </parent>
     
     <name>Keycloak Operator</name>
     <artifactId>keycloak-operator</artifactId>
-    <groupId>org.keycloak</groupId>
-    <version>21.0.2</version>
 
     <properties>
         <!--
@@ -126,15 +124,13 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <!-- Sync version this dependency in keycloak repo -->
-            <version>3.22.0</version>
+            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <!-- Sync version this dependency in keycloak repo -->
-            <version>4.1.1</version>
+            <version>${awaitility.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
