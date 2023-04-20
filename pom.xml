@@ -8,7 +8,7 @@
         <artifactId>keycloak-parent</artifactId>
         <groupId>org.keycloak</groupId>
         <version>21.0.2</version>
-        <relativePath>../keycloak-parent/pom.xml</relativePath>
+        <relativePath>./keycloak-parent/pom.xml</relativePath>
     </parent>
     
     <name>Keycloak Operator</name>
