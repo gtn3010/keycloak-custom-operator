@@ -161,7 +161,7 @@ public class KeycloakRealmImportJob extends OperatorManagedResource {
         var command = List.of("/bin/bash");
 
         String override;
-        if (realmCR.getSpec().isOverrideEnabled()) {
+        if (realmCR.getSpec().getOverrideExistRealm()) {
             override = "--override=true";
         } else {
             override = "--override=false";

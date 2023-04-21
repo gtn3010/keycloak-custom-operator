@@ -28,11 +28,16 @@ public class IngressSpec {
     @JsonProperty("enabled")
     private boolean enabled = true;
 
+    @JsonProperty("customAnnotations")
     @JsonPropertyDescription("Custom annotations for Ingress.")
     private Map<String,String> customAnnotations;
 
-    public Map<String,String> getCustomIngressAnnotations() {
+    public Map<String,String> getCustomAnnotations() {
         return customAnnotations;
+    }
+
+    public void setCustomAnnotations(Map<String,String> customAnnotations) {
+        this.customAnnotations = customAnnotations;
     }
 
     public boolean isIngressEnabled() {

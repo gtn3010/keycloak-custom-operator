@@ -147,12 +147,18 @@ public class KeycloakSpec {
         return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+
+    // Add new field `existingAdminSecret` => Must define these 2 methods get and set like below for operator parsing the CR
     public String getExistingAdminSecret() {
         return existingAdminSecret;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setExistingAdminSecret(String existingAdminSecret) {
+        this.existingAdminSecret = existingAdminSecret;
     }
 
     public List<LocalObjectReference> getImagePullSecrets() {

@@ -52,12 +52,20 @@ public class KeycloakRealmImportSpec {
         this.realm = realm;
     }
 
-    public boolean isOverrideEnabled() {
+    public boolean getOverrideExistRealm() {
         return overrideExistRealm;
+    }
+
+    public void setOverrideExistRealm(boolean overrideExistRealm) {
+        this.overrideExistRealm = overrideExistRealm;
     }
 
     public String getCustomArgs() {
         return customArgs;
+    }
+
+    public void setCustomArgs(String customArgs) {
+        this.customArgs = customArgs;
     }
 
 }
